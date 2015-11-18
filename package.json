@@ -4,7 +4,9 @@
   "description": "Apply an alpha mask to your text using SVG and CSS mask-mode with custom font support.",
   "main": "dist/photomask.js",
   "scripts": {
-    "test": "ava"
+    "test": "ava",
+    "build": "webpack",
+    "start": "webpack-dev-server --content-base example/"
   },
   "repository": {
     "type": "git",
@@ -26,6 +28,7 @@
   "devDependencies": {
     "babel-core": "^6.1.21",
     "babel-loader": "^6.2.0",
-    "webpack": "^1.12.6"
+    "webpack": "^1.12.6",
+    "webpack-dev-server": "^1.12.1"
   }
 }
