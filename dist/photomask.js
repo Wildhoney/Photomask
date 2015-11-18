@@ -45,7 +45,15 @@ module.exports =
 /* 0 */
 /***/ function(module, exports) {
 
-	
+	///**
+	// * @method transform
+	// * @param {HTMLElement} element
+	// * @param {String} [image]
+	// * @return {Promise}
+	// */
+	//export function transform(element, { image } = {}) {
+	//
+	//}
 
 /***/ }
 /******/ ]);
