@@ -2,7 +2,7 @@
   "name": "photomask",
   "version": "0.1.0",
   "description": "Apply an alpha mask to your text using SVG and CSS mask-mode with custom font support.",
-  "main": "dist/photomask.min.js",
+  "main": "dist/photomask.js",
   "scripts": {
     "test": "ava"
   },
@@ -22,5 +22,10 @@
   "bugs": {
     "url": "https://github.com/Wildhoney/Photomask/issues"
   },
-  "homepage": "https://github.com/Wildhoney/Photomask#readme"
+  "homepage": "https://github.com/Wildhoney/Photomask#readme",
+  "devDependencies": {
+    "babel-core": "^6.1.21",
+    "babel-loader": "^6.2.0",
+    "webpack": "^1.12.6"
+  }
 }
