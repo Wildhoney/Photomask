@@ -5,7 +5,7 @@
   "main": "dist/photomask.js",
   "scripts": {
     "test": "ava",
-    "build": "webpack",
+    "build": "webpack && uglifyjs dist/photomask.js --mangle-props -o dist/photomask.min.js",
     "start": "webpack-dev-server --content-base example/"
   },
   "repository": {
@@ -29,6 +29,7 @@
     "ava": "^0.5.0",
     "babel": "^6.1.18",
     "babel-loader": "^6.2.0",
-    "express": "^4.13.3"
+    "express": "^4.13.3",
+    "uglify-js": "^2.6.1"
   }
 }
