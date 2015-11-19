@@ -47,40 +47,21 @@ module.exports =
 
 	/**
 	 * @method transform
-	 * @param {HTMLElement} img
-	 * @param {String} [src]
+	 * @param {HTMLElement} element
+	 * @param {String} [image]
 	 * @param {String} [text]
 	 * @return {Promise}
 	 */
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
-	    value: true
+	  value: true
 	});
 	exports.transform = transform;
 
-	function transform(img, _ref) {
-	    var src = _ref.src;
-	    var text = _ref.text;
-
-	    /**
-	     * @method getDimension
-	     * @param {String} property
-	     * @return {Number}
-	     */
-	    var getDimension = function getDimension(property) {
-	        return parseInt(getComputedStyle(img).getPropertyValue(property), 10);
-	    };
-
-	    var height = getDimension('height');
-	    var width = getDimension('width');
-
-	    var svg = '<svg xmlns="http://www.w3.org/2000/svg">\n                    <text x="' + width / 2 + '" y="' + height / 2 + '" fill="white"\n                          font-size="80" font-family="WhoopAss, san-serif" textLength="100%" text-anchor="middle">\n                        ' + text + '\n                    </text>\n                 </svg>';
-
-	    // Define the SVG data to be used as the mask, and then construct the `style` attribute.
-	    var mask = 'url(data:image/svg+xml;base64,' + btoa(svg) + ')';
-
-	    img.setAttribute('style', '\n        background-image: url(\'images/meadows.jpg\');\n        background-size: cover;\n        -webkit-mask-image: ' + mask + ';\n        mask: ' + mask);
+	function transform(element, _ref) {
+	  var image = _ref.image;
+	  var text = _ref.text;
 	}
 
 	/**
@@ -90,36 +71,44 @@ module.exports =
 	 */
 	function readAttributes(element) {
 
-	    return {
-	        text: element.getAttribute('alt'),
-	        src: element.getAttribute('src')
-	    };
+	  return {
+	    image: element.getAttribute('src'),
+	    text: element.getAttribute('alt')
+	  };
 	}
 
 	document.registerElement('x-photomask', {
 
-	    /**
-	     * @property extends
-	     * @type {String}
-	     */
-	    'extends': 'img',
+	  /**
+	   * @property extends
+	   * @type {String}
+	   */
+	  'extends': 'img',
+
+	  /**
+	   * @property prototype
+	   * @type {Object}
+	   * @return {void}
+	   */
+	  prototype: Object.create(HTMLImageElement.prototype, {
 
 	    /**
-	     * @property prototype
-	     * @type {Object}
+	     * @method attachedCallback
 	     * @return {void}
 	     */
-	    prototype: Object.create(HTMLImageElement.prototype, {
+	    attachedCallback: function attachedCallback() {
+	      transform(undefined, undefined.readAttributes(undefined));
+	    },
 
-	        /**
-	         * @property attachedCallback
-	         * @type {Object}
-	         */
-	        attachedCallback: { value: function attachedCallback() {
-	                transform(this, readAttributes(this));
-	            } }
+	    /**
+	     * @method attributeChangedCallback
+	     * @return {void}
+	     */
+	    attributeChangedCallback: function attributeChangedCallback() {
+	      transform(undefined, undefined.readAttributes(undefined));
+	    }
 
-	    })
+	  })
 	});
 
 /***/ }
