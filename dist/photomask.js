@@ -48,7 +48,6 @@ module.exports =
 	/**
 	 * @method transform
 	 * @param {HTMLElement} element
-	 * @param {String} [image]
 	 * @return {Promise}
 	 */
 	"use strict";
@@ -58,11 +57,7 @@ module.exports =
 	});
 	exports.transform = transform;
 
-	function transform(element) {
-	  var _ref = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
-
-	  var image = _ref.image;
-	}
+	function transform(element) {}
 
 /***/ }
 /******/ ]);
