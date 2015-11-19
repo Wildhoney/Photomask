@@ -45,6 +45,8 @@ module.exports =
 /* 0 */
 /***/ function(module, exports) {
 
+	"use strict";
+
 	///**
 	// * @method transform
 	// * @param {HTMLElement} element

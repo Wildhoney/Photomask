@@ -26,9 +26,9 @@
   },
   "homepage": "https://github.com/Wildhoney/Photomask#readme",
   "devDependencies": {
-    "babel-core": "^6.1.21",
+    "ava": "^0.5.0",
+    "babel": "^6.1.18",
     "babel-loader": "^6.2.0",
-    "webpack": "^1.12.6",
-    "webpack-dev-server": "^1.12.1"
+    "express": "^4.13.3"
   }
 }
