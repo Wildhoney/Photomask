@@ -11,15 +11,13 @@ import {transform} from 'photomask';
 
 // ...
 
-const headerElement = document.querySelector('h1');
-
-transform(headerElement, {
-    image: '/path/to/image.png'
-});
+const imgElement = document.querySelector('img');
+transform(imgElement);
 ```
 
-Where the `h1` would be a normal element with a title that will be used for the masking process &mdash; the masking image can either be passed in using the `data-image` attribute in the HTML, or the `image` property in the `transform` function &mdash; the function's property takes precedence.
+For the image mask the `src` attribute will be used, whereas the text will be taken from the `img` element's `alt` attribute.
 
 ```html
-<h1 data-image="/path/to/image.png">Photomask</h1>
+<img src="/path/to/landscape.png" alt="Photomask" />
 ```
+
