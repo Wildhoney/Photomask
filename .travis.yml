@@ -1,0 +1,12 @@
+language: node_js
+
+node_js:
+  - 4.0
+  - 4.1
+  - iojs
+
+sudo: false
+
+postinstall:
+  - npm run build
+
