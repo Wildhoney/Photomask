@@ -17,7 +17,9 @@
     "text mask",
     "alpha mask",
     "mask",
-    "masking"
+    "masking",
+    "text image",
+    "text background"
   ],
   "author": "Adam Timberlake <adam.timberlake@gmail.com>",
   "license": "MIT",
