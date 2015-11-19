@@ -1,4 +1,4 @@
-var Photomask =
+module.exports =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -55,32 +55,32 @@ var Photomask =
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
-	  value: true
+	    value: true
 	});
 	exports.transform = transform;
 
 	function transform(img, _ref) {
-	  var src = _ref.src;
-	  var text = _ref.text;
+	    var src = _ref.src;
+	    var text = _ref.text;
 
-	  /**
-	   * @method getDimension
-	   * @param {String} property
-	   * @return {Number}
-	   */
-	  var getDimension = function getDimension(property) {
-	    return parseInt(getComputedStyle(img).getPropertyValue(property), 10);
-	  };
+	    /**
+	     * @method getDimension
+	     * @param {String} property
+	     * @return {Number}
+	     */
+	    var getDimension = function getDimension(property) {
+	        return parseInt(getComputedStyle(img).getPropertyValue(property), 10);
+	    };
 
-	  var height = getDimension('height');
-	  var width = getDimension('width');
+	    var height = getDimension('height');
+	    var width = getDimension('width');
 
-	  var svg = '<svg xmlns="http://www.w3.org/2000/svg">\n                    <text x="' + width / 2 + '" y="' + height / 2 + '" fill="white"\n                          font-size="80" font-family="WhoopAss, san-serif" textLength="100%" text-anchor="middle">\n                        ' + text + '\n                    </text>\n                 </svg>';
+	    var svg = '<svg xmlns="http://www.w3.org/2000/svg">\n                    <text x="' + width / 2 + '" y="' + height / 2 + '" fill="white"\n                          font-size="80" font-family="WhoopAss, san-serif" textLength="100%" text-anchor="middle">\n                        ' + text + '\n                    </text>\n                 </svg>';
 
-	  // Define the SVG data to be used as the mask, and then construct the `style` attribute.
-	  var mask = 'url(data:image/svg+xml;base64,' + btoa(svg) + ')';
+	    // Define the SVG data to be used as the mask, and then construct the `style` attribute.
+	    var mask = 'url(data:image/svg+xml;base64,' + btoa(svg) + ')';
 
-	  img.setAttribute('style', '\n        background-image: url(\'images/meadows.jpg\');\n        background-size: cover;\n        -webkit-mask-image: ' + mask + ';\n        mask: ' + mask);
+	    img.setAttribute('style', '\n        background-image: url(\'images/meadows.jpg\');\n        background-size: cover;\n        -webkit-mask-image: ' + mask + ';\n        mask: ' + mask);
 	}
 
 	/**
@@ -90,43 +90,36 @@ var Photomask =
 	 */
 	function readAttributes(element) {
 
-	  return {
-	    text: element.getAttribute('alt'),
-	    src: element.getAttribute('src')
-	  };
+	    return {
+	        text: element.getAttribute('alt'),
+	        src: element.getAttribute('src')
+	    };
 	}
 
 	document.registerElement('x-photomask', {
 
-	  /**
-	   * @property extends
-	   * @type {String}
-	   */
-	  'extends': 'img',
-
-	  /**
-	   * @property prototype
-	   * @type {Object}
-	   * @return {void}
-	   */
-	  prototype: Object.create(HTMLImageElement.prototype, {
+	    /**
+	     * @property extends
+	     * @type {String}
+	     */
+	    'extends': 'img',
 
 	    /**
-	     * @property attachedCallback
+	     * @property prototype
 	     * @type {Object}
+	     * @return {void}
 	     */
-	    attachedCallback: { value: function attachedCallback() {
-	        transform(this, readAttributes(this));
-	      } },
+	    prototype: Object.create(HTMLImageElement.prototype, {
 
-	    /**
-	     * @property attributeChangedCallback
-	     * @type {Object}
-	     */
-	    attributeChangedCallback: { value: function attributeChangedCallback() {
-	        //transform(this, readAttributes(this));
-	      } }
-	  })
+	        /**
+	         * @property attachedCallback
+	         * @type {Object}
+	         */
+	        attachedCallback: { value: function attachedCallback() {
+	                transform(this, readAttributes(this));
+	            } }
+
+	    })
 	});
 
 /***/ }

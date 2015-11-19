@@ -5,8 +5,9 @@
   "main": "dist/photomask.js",
   "scripts": {
     "test": "ava",
-    "build": "webpack && uglifyjs dist/photomask.js --mangle-props -o dist/photomask.min.js",
-    "start": "webpack-dev-server --content-base example/"
+    "build": "webpack && uglifyjs dist/photomask.js --mangle-props -o dist/photomask.min.js && cp dist/photomask.js example/js/photomask.js",
+    "start": "webpack-dev-server --content-base example/",
+    "watch": "webpack --watch"
   },
   "repository": {
     "type": "git",
