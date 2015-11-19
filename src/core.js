@@ -9,6 +9,20 @@ export function transform(element, { image, text }) {
 
 }
 
+/**
+ * @method readAttributes
+ * @param {Element} element
+ * @return {Object}
+ */
+function readAttributes(element) {
+
+    return {
+        image: element.getAttribute('src'),
+        text: element.getAttribute('alt')
+    };
+
+}
+
 document.registerElement('x-photomask', {
 
     /**
@@ -29,7 +43,7 @@ document.registerElement('x-photomask', {
     	 * @return {void}
     	 */
     	attachedCallback: () => {
-            transform(this);
+            transform(this, this.readAttributes(this));
     	},
 
         /**
@@ -37,7 +51,7 @@ document.registerElement('x-photomask', {
          * @return {void}
          */
         attributeChangedCallback: () => {
-            transform(this);
+            transform(this, this.readAttributes(this));
         }
 
     })
