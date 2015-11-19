@@ -45,17 +45,24 @@ module.exports =
 /* 0 */
 /***/ function(module, exports) {
 
+	/**
+	 * @method transform
+	 * @param {HTMLElement} element
+	 * @param {String} [image]
+	 * @return {Promise}
+	 */
 	"use strict";
 
-	///**
-	// * @method transform
-	// * @param {HTMLElement} element
-	// * @param {String} [image]
-	// * @return {Promise}
-	// */
-	//export function transform(element, { image } = {}) {
-	//
-	//}
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.transform = transform;
+
+	function transform(element) {
+	  var _ref = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+	  var image = _ref.image;
+	}
 
 /***/ }
 /******/ ]);
