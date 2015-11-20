@@ -21,10 +21,6 @@ function PhotomaskDirective() {
         scope: false,
         link: (scope, element) => {
 
-            element[0].addEventListener('load', () => {
-                console.log('x');
-            });
-
             function process() {
                 const img = element[0];
                 transform(img, scope.options);

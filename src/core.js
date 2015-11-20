@@ -65,7 +65,7 @@ export function transform(img, { src, text, paddingLeft = 0, paddingRight = 0, p
 
     })(500, width - (paddingLeft + paddingRight));
 
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
+    const svg = `<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                       preserveAspectRatio="xMidYMid meet" viewBox="0 0 ${width} ${height}">
                     <defs>
                         <mask id="mask" maskUnits="userSpaceOnUse" width="${width}" height="${height}" x="0" y="0">
@@ -78,6 +78,8 @@ export function transform(img, { src, text, paddingLeft = 0, paddingRight = 0, p
                     </defs>
                     <use xlink:href="#photomask" />
                  </svg>`;
+
+    console.log(svg);
 
     // Define the SVG data to be used as the mask, and then construct the `style` attribute.
     const data = `data:image/svg+xml;base64,${btoa(svg)}`;

@@ -6,11 +6,26 @@
 
 @font-face {
     font-family: WhoopAss;
-    src: url('../fonts/whoopass.otf');
+    src: url('../fonts/whoopass.woff');
 }
 
 body, html {
     overflow: hidden;
+}
+
+img.photomask {
+    background-image: url('../images/meadows.jpg');
+    width: 720px;
+    height: 700px;
+    padding: 8px 25px 0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    font-family: WhoopAss, "Arial Black", Arial, Tahoma, Helvetica, sans-serif;
+    background-position: center 90px;
 }
 
 ul.controls {
@@ -45,20 +60,6 @@ ul.controls li input {
     outline: none;
     color: rgba(0, 0, 0, .55);
     border: 1px solid rgba(0, 0, 0, .05);
-}
-
-img.photomask {
-    width: 720px;
-    height: 700px;
-    padding: 8px 25px 0;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-    font-family: WhoopAss, Arial, Tahoma, Helvetica, sans-serif;
-    background-position: center 90px;
 }
 
 img.fork {
