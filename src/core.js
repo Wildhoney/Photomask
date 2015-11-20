@@ -10,6 +10,18 @@ const computedProperty = (element) => {
 };
 
 /**
+ * @property blankImage
+ * @type {String}
+ */
+const blankImage = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAQAIBRAA7';
+
+/**
+ * @property isFirefox
+ * @type {Boolean}
+ */
+const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+
+/**
  * @method transform
  * @param {HTMLElement} img
  * @param {String} [src]
@@ -17,7 +29,7 @@ const computedProperty = (element) => {
  * @param {Number} [paddingLeft]
  * @param {Number} [paddingRight]
  * @param {Number} [paddingTop]
- * @return {Promise}
+ * @return {void}
  */
 export function transform(img, { src, text, paddingLeft = 0, paddingRight = 0, paddingTop = 0 } = {}) {
 
@@ -30,6 +42,7 @@ export function transform(img, { src, text, paddingLeft = 0, paddingRight = 0, p
     }
 
     const fontFamily = computed('font-family', null);
+    const offset = isFirefox ? 36 : 0;
 
     /**
      * Recursively computes the ideal font-size, which can be perfected using the padding
@@ -56,7 +69,7 @@ export function transform(img, { src, text, paddingLeft = 0, paddingRight = 0, p
                       preserveAspectRatio="xMidYMid meet" viewBox="0 0 ${width} ${height}">
                     <defs>
                         <mask id="mask" maskUnits="userSpaceOnUse" width="${width}" height="${height}" x="0" y="0">
-                            <text id="photomask" x="${width / 2}" y="${(height / 2) + paddingTop}" fill="white"
+                            <text id="photomask" x="${width / 2}" y="${(height / 2) + (paddingTop + offset)}" fill="white"
                                   font-size="${fontSize}" font-family="${fontFamily}"
                                   alignment-baseline="central" text-anchor="middle">
                                 ${text}
@@ -69,7 +82,7 @@ export function transform(img, { src, text, paddingLeft = 0, paddingRight = 0, p
     // Define the SVG data to be used as the mask, and then construct the `style` attribute.
     const data = `data:image/svg+xml;base64,${btoa(svg)}`;
 
-    img.setAttribute('src', '');
+    img.setAttribute('src', blankImage);
     img.setAttribute('style', `
         padding: 0;
         background: transparent url(${src}) ${computed('background-position', null)};
@@ -84,7 +97,7 @@ export function transform(img, { src, text, paddingLeft = 0, paddingRight = 0, p
  * @param {Element} element
  * @return {Object}
  */
-function readAttributes(element) {
+export function readAttributes(element) {
 
     const computed = computedProperty(element);
     const paddingLeft = computed('padding-left');

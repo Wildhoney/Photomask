@@ -33,6 +33,7 @@
   },
   "homepage": "https://github.com/Wildhoney/Photomask#readme",
   "devDependencies": {
+    "angular": "^1.4.8",
     "babel-eslint": "^4.1.5",
     "babelify": "^6.4.0",
     "browserify": "^11.2.0",

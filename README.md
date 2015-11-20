@@ -13,9 +13,11 @@
 * **npm:** `npm install photomask --save`
 
 <img src="https://github.com/alrra/browser-logos/raw/master/chrome/chrome_256x256.png" width="32" height="32" />
+<img src="https://github.com/alrra/browser-logos/raw/master/firefox/firefox_256x256.png" width="32" height="32" />
 <img src="https://github.com/alrra/browser-logos/raw/master/opera/opera_256x256.png" width="32" height="32" />
+<img src="https://github.com/alrra/browser-logos/raw/master/safari/safari_256x256.png" width="32" height="32" />
 
-<sub><sup>Tested with Chrome 46.0, Opera 33.0 &mdash; Firefox 42.0 support in progress.</sup></sub>
+<sub><sup>Tested with Chrome 46.0, Opera 33.0, Firefox 42.0, Safari 9.0.1</sup></sub>
 
 ## Getting Started
 

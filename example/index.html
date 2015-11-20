@@ -11,9 +11,24 @@
     <script type="text/javascript" src="js/bundle.js"></script>
 
 </head>
-<body>
+<body ng-app="maskApp" ng-controller="MainController">
 
-    <img is="x-photomask" src="images/meadows.jpg" alt="Photomask" />
+    <ul class="controls">
+        <li>
+            <label for="text">Text:</label>
+            <input id="text" type="text" ng-model="options.text" />
+        </li>
+        <li>
+            <label for="padding-left">Buffer:</label>
+            <input id="padding-left" type="number" ng-model="options.paddingLeft" max="100" min="0" />
+        </li>
+        <li>
+            <label for="padding-top">Top:</label>
+            <input id="padding-top" type="number" ng-model="options.paddingTop" max="100" min="0" />
+        </li>
+    </ul>
+
+    <img class="photomask" />
 
     <a href="https://github.com/Wildhoney/Photomask" target="_blank">
         <img class="fork" src="https://aral.github.com/fork-me-on-github-retina-ribbons/left-white@2x.png" alt="Fork me on GitHub.com" />

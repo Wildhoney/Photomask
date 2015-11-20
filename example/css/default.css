@@ -1,6 +1,7 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 @font-face {
@@ -12,9 +13,43 @@ body, html {
     overflow: hidden;
 }
 
-img[is="x-photomask"] {
+ul.controls {
+    position: absolute;
+    bottom: 100px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 700px;
+    list-style-type: none;
+    z-index: 2;
+}
+
+ul.controls li {
+    float: left;
+    width: 33.333%;
+    font-family: Arial, Tahoma, Helvetica, sans-serif;
+}
+
+ul.controls li label {
+    padding-right: 10px;
+    color: rgba(0, 0, 0, .5);
+    font-size: 9px;
+    text-transform: uppercase;
+}
+
+ul.controls li input {
+    font-size: 11px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .05);
+    width: 120px;
+    padding: 5px 10px;
+    outline: none;
+    color: rgba(0, 0, 0, .55);
+    border: 1px solid rgba(0, 0, 0, .05);
+}
+
+img.photomask {
     width: 720px;
-    height: 400px;
+    height: 700px;
     padding: 8px 25px 0;
     position: absolute;
     top: 0;
@@ -23,7 +58,7 @@ img[is="x-photomask"] {
     right: 0;
     margin: auto;
     font-family: WhoopAss, Arial, Tahoma, Helvetica, sans-serif;
-    background-position: center 30px;
+    background-position: center 90px;
 }
 
 img.fork {
