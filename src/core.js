@@ -55,12 +55,13 @@ export function transform(img, { src, text, paddingLeft = 0, paddingRight = 0, p
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
                       preserveAspectRatio="xMidYMid meet" viewBox="0 0 ${width} ${height}">
                     <defs>
-                        <mask id="mask" maskUnits="userSpaceOnUse" width="${width}" height="${height}" x="0" y="0" />
-                        <text id="photomask" x="${width / 2}" y="${(height / 2) + paddingTop}" fill="white"
-                              font-size="${fontSize}" font-family="${fontFamily}"
-                              alignment-baseline="central" text-anchor="middle">
-                            ${text}
-                        </text>
+                        <mask id="mask" maskUnits="userSpaceOnUse" width="${width}" height="${height}" x="0" y="0">
+                            <text id="photomask" x="${width / 2}" y="${(height / 2) + paddingTop}" fill="white"
+                                  font-size="${fontSize}" font-family="${fontFamily}"
+                                  alignment-baseline="central" text-anchor="middle">
+                                ${text}
+                            </text>
+                        </mask>
                     </defs>
                     <use xlink:href="#photomask" />
                  </svg>`;
@@ -68,9 +69,10 @@ export function transform(img, { src, text, paddingLeft = 0, paddingRight = 0, p
     // Define the SVG data to be used as the mask, and then construct the `style` attribute.
     const data = `data:image/svg+xml;base64,${btoa(svg)}`;
 
+    img.setAttribute('src', '');
     img.setAttribute('style', `
         padding: 0;
-        background-image: url(${src});
+        background: transparent url(${src}) ${computed('background-position', null)};
         background-size: cover;
         -webkit-mask-image: url(${data});
         mask: url(${data}#mask)`);
