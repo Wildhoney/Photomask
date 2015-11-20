@@ -83,9 +83,6 @@ var Photomask =
 	    var paddingRight = computerProperty('padding-right');
 	    var paddingTop = computerProperty('padding-top');
 	    var fontFamily = computerProperty('font-family', null);
-
-	    console.log(fontFamily);
-
 	    var fontSize = (function computeFontSize(_x2, _x3) {
 	        var _again = true;
 
