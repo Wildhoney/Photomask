@@ -1,6 +1,4 @@
-# Photomask
-
-![Photomask Example](media/screenshot.png)
+![Photomask](media/screenshot.png)
 
 > Apply an alpha mask to your text using SVG and CSS `mask` with custom font support.
 
@@ -57,7 +55,7 @@ img[is="x-photomask"] {
 
 In some cases you may wish to adjust the background to allow a different segment of the background to shine through &mdash; the fine-tuning for the background can be done using the `background-position` property.
 
-```javascript
+```css
 img[is="x-photomask"] {
     background-position: 100px 50px;
 }
