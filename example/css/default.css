@@ -3,7 +3,18 @@
     padding: 0;
 }
 
+body, html {
+    overflow: hidden;
+}
+
 img {
-    width: 500px;
-    height: 350px;
+    width: 800px;
+    height: 550px;
+    padding: 8px 5px 0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
 }

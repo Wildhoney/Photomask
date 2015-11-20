@@ -16,12 +16,29 @@ export function transform(img, { src, text }) {
         return parseInt(getComputedStyle(img).getPropertyValue(property), 10);
     };
 
-    const height   = getDimension('height');
-    const width    = getDimension('width');
+    const height = getDimension('height');
+    const width = getDimension('width');
+    const paddingLeft = getDimension('padding-left');
+    const paddingRight = getDimension('padding-right');
+    const paddingTop = getDimension('padding-top');
+    const fontSize = (function computeFontSize(size, widthConstraint) {
+
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        context.font = `${size}px 'WhoopAss'`;
+
+        if (context.measureText(text).width <= widthConstraint) {
+            return size;
+        }
+
+        return computeFontSize(size - 1, widthConstraint);
+
+    })(500, width - (paddingLeft + paddingRight));
 
     const svg = `<svg xmlns="http://www.w3.org/2000/svg">
-                    <text x="${width / 2}" y="${height / 2}" fill="white"
-                          font-size="80" font-family="WhoopAss, san-serif" textLength="100%" text-anchor="middle">
+                    <text x="${width / 2}" y="${(height / 2) + paddingTop}" fill="white"
+                          font-size="${fontSize}" font-family="WhoopAss, san-serif"
+                          alignment-baseline="central" text-anchor="middle">
                         ${text}
                     </text>
                  </svg>`;
@@ -30,6 +47,7 @@ export function transform(img, { src, text }) {
     const mask = `url(data:image/svg+xml;base64,${btoa(svg)})`;
 
     img.setAttribute('style', `
+        padding: 0;
         background-image: url('images/meadows.jpg');
         background-size: cover;
         -webkit-mask-image: ${mask};
