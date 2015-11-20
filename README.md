@@ -1,8 +1,16 @@
 # Photomask
 
+![Photomask Example](media/screenshot.png)
+
 > Apply an alpha mask to your text using SVG and CSS `mask` with custom font support.
 
-![Photomask Example](media/screenshot.png)
+![Travis](http://img.shields.io/travis/Wildhoney/Photomask.svg?style=flat-square)
+&nbsp;
+![npm](http://img.shields.io/npm/v/photomask.svg?style=flat-square)
+&nbsp;
+![License MIT](http://img.shields.io/badge/License-MIT-lightgrey.svg?style=flat-square)
+
+* **npm:** `npm install photomask --save`
 
 ## Getting Started
 
