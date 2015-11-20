@@ -12,6 +12,11 @@
 
 * **npm:** `npm install photomask --save`
 
+<img src="https://github.com/alrra/browser-logos/raw/master/chrome/chrome_256x256.png" width="32" height="32" />
+<img src="https://github.com/alrra/browser-logos/raw/master/opera/opera_256x256.png" width="32" height="32" />
+
+<sub><sup>Tested with Chrome 46.0, Opera 33.0 &mdash; Firefox 42.0 support in progress.</sup></sub>
+
 ## Getting Started
 
 Photomask provides a `x-photomask` element that uses HTML5 custom elements to extend the `HTMLImageElement.prototype` object.
