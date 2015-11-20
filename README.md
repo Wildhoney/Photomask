@@ -1,6 +1,6 @@
 ![Photomask](media/screenshot.png)
 
-> Apply an alpha mask to your text using SVG and CSS `mask` with custom font support.
+> Apply an alpha mask to your text using SVG and CSS with custom font support and fine-tuning.
 
 ![Travis](http://img.shields.io/travis/Wildhoney/Photomask.svg?style=flat-square)
 &nbsp;

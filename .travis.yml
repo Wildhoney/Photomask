@@ -9,7 +9,11 @@ sudo: false
 
 script:
   - npm install
+  - bower install
   - npm run build
+
+before_deploy:
+  - npm run cleanup
 
 deploy:
   provider: heroku
