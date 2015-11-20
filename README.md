@@ -17,40 +17,49 @@
 <img src="https://github.com/alrra/browser-logos/raw/master/opera/opera_256x256.png" width="32" height="32" />
 <img src="https://github.com/alrra/browser-logos/raw/master/safari/safari_256x256.png" width="32" height="32" />
 
-<sub><sup>Tested with Chrome 46.0, Opera 33.0, Firefox 42.0, Safari 9.0.1</sup></sub>
+<sup>Tested with Chrome 46.0, Opera 33.0, Firefox 42.0 and Safari 9.0.1.</sup>
 
 ## Getting Started
 
 Photomask provides a `x-photomask` element that uses HTML5 custom elements to extend the `HTMLImageElement.prototype` object.
 
 ```html
-<img is="x-photomask" src="/path/to/landscape.png" alt="Photomask" />
+<img is="x-photomask" src="path/to/landscape.png" alt="Photomask" />
 ```
 
 **Note:** For the image the `src` attribute will be used, and the text will be taken from the `img` element's `alt` attribute. When creating the `img` element, you're required to add the `is="x-photomask"` attribute which is a registered [custom element](http://www.html5rocks.com/en/tutorials/webcomponents/customelements/).
 
 Once you have inserted your `img[is="x-photomask"]` element into the DOM, Photomask will apply the mask automatically for you.
 
-### Padding & Custom Font
+### Fine-tuning via Padding
 
-Photomask attempts to recursively compute the ideal font size for your supplied text &ndash; yet some fonts are not computed perfectly &mdash; for these instances Photomask allows you to style your `img` element using the standard `padding` property via CSS.
+Photomask attempts to recursively compute the ideal font size for your supplied text using `canvas`' `measureText` method &ndash; yet some fonts are not computed perfectly. For these instances Photomask allows you to style your `img` element using the standard `padding` property via CSS to adjust for imperfections.
 
-Once Photomask recognises the padding, it will add the padding as a buffer around the image allowing all of the text to fit snuggly inside the container. Likewise if you wish to add a little padding on the top to correct the vertical positioning, `padding-top` is also recognised to allow the text to be positioned perfectly.
+Padding will be applied as a buffer around the image allowing all of the text to fit snuggly inside the container. Likewise if you wish to add a little padding on the top to correct the vertical positioning, `padding-top` is also recognised to allow the text to be positioned perfectly.
 
 ```css
 img[is="x-photomask"] {
-
-    // add 4px to correct vertical positioning, and 15px either side to correct overflowing text.
     padding: 4px 15px 0 15px;
-    
 }
 ```
 
-By supplying the `font-family` property, you can also change the font that is rendered with Photomask.
+### Using Custom Fonts
+
+By supplying the `font-family` property you can change the font that is rendered with Photomask. As long as the font has been added to your page &mdash; such as via the `@font-face` method &mdash; then the font will be rendered to the SVG container correctly.
 
 ```css
 img[is="x-photomask"] {
     font-family: Arial, Tahoma, Helvetica, san-serif;
+}
+```
+
+### Adjusting Background
+
+In some cases you may wish to adjust the background to allow a different segment of the background to shine through &mdash; the fine-tuning for the background can be done using the `background-position` property.
+
+```javascript
+img[is="x-photomask"] {
+    background-position: 100px 50px;
 }
 ```
 
@@ -68,3 +77,15 @@ transform(imgElement, { text: 'Photomask', image: 'path/to/image.png' });
 ```
 
 **Note:** When using the custom element approach, the values are taken directly from the element &mdash; with the `src` and `alt` attributes &ndash; however when you invoke `transform` manually, you need to pass the image and text to the function as the second argument.
+
+However Photomask always conveniently exports the `readAttributes` function, so you can use that to pass in to the `transform` function.
+
+```javascript
+import {transform, readAttributes} from 'photomask';
+
+// ...
+
+const imgElement = document.querySelector('img');
+transform(imgElement, readAttributes(imgElement));
+```
+
