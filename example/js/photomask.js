@@ -98,6 +98,14 @@ var Photomask =
 	    }
 
 	    var fontFamily = computed('font-family', null);
+
+	    /**
+	     * Recursively computes the ideal font-size, which can be perfected using the padding
+	     * properties via CSS.
+	     *
+	     * @property fontSize
+	     * @type {Number}
+	     */
 	    var fontSize = (function computeFontSize(_x3, _x4) {
 	        var _again = true;
 
@@ -122,12 +130,12 @@ var Photomask =
 	        }
 	    })(500, width - (paddingLeft + paddingRight));
 
-	    var svg = '<svg xmlns="http://www.w3.org/2000/svg">\n                    <text x="' + width / 2 + '" y="' + (height / 2 + paddingTop) + '" fill="white"\n                          font-size="' + fontSize + '" font-family="' + fontFamily + '"\n                          alignment-baseline="central" text-anchor="middle">\n                        ' + text + '\n                    </text>\n                 </svg>';
+	    var svg = '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"\n                      preserveAspectRatio="xMidYMid meet" viewBox="0 0 ' + width + ' ' + height + '">\n                    <defs>\n                        <mask id="mask" maskUnits="userSpaceOnUse" width="' + width + '" height="' + height + '" x="0" y="0" />\n                        <text id="photomask" x="' + width / 2 + '" y="' + (height / 2 + paddingTop) + '" fill="white"\n                              font-size="' + fontSize + '" font-family="' + fontFamily + '"\n                              alignment-baseline="central" text-anchor="middle">\n                            ' + text + '\n                        </text>\n                    </defs>\n                    <use xlink:href="#photomask" />\n                 </svg>';
 
 	    // Define the SVG data to be used as the mask, and then construct the `style` attribute.
-	    var mask = 'url(data:image/svg+xml;base64,' + btoa(svg) + ')';
+	    var data = 'data:image/svg+xml;base64,' + btoa(svg);
 
-	    img.setAttribute('style', '\n        padding: 0;\n        background-image: url(' + src + ');\n        background-size: cover;\n        -webkit-mask-image: ' + mask + ';\n        mask: ' + mask);
+	    img.setAttribute('style', '\n        padding: 0;\n        background-image: url(' + src + ');\n        background-size: cover;\n        -webkit-mask-image: url(' + data + ');\n        mask: url(' + data + '#mask)');
 	}
 
 	/**
