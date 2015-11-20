@@ -43,12 +43,14 @@ img[is="x-photomask"] {
 
 ### Using Custom Fonts
 
-By supplying the `font-family` property you can change the font that is rendered with Photomask. As long as the font has been added to your page &mdash; such as via the `@font-face` method &mdash; then the font will be rendered to the SVG container correctly.
+By supplying the `font-family` property you can change the font that is rendered with Photomask. Adding a custom font is done via the `registerFont` function &mdash; you must pass the `name` (`font-family`) of the font and the `dataUri` which you can generate via [Dopiaza](http://dopiaza.org/tools/datauri/index.php).
 
-```css
-img[is="x-photomask"] {
-    font-family: Arial, Tahoma, Helvetica, san-serif;
-}
+```javascript
+import {registerFont} from 'photomask';
+
+// ...
+
+registerFont('Pacifico', 'data:application/font-woff;base64,d09GRk...');
 ```
 
 ### Adjusting Background

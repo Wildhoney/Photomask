@@ -22,6 +22,22 @@ const blankImage = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALA
 const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
 
 /**
+ * @property registeredFonts
+ * @type {Array}
+ */
+const registeredFonts = [];
+
+/**
+ * @method registerFont
+ * @param {String} name
+ * @param {String} dataUri
+ * @return {void}
+ */
+export function registerFont(name, dataUri) {
+    registeredFonts.push({ name, dataUri });
+}
+
+/**
  * @method transform
  * @param {HTMLElement} img
  * @param {String} [src]
@@ -65,9 +81,15 @@ export function transform(img, { src, text, paddingLeft = 0, paddingRight = 0, p
 
     })(500, width - (paddingLeft + paddingRight));
 
+    // Import all of the registered fonts.
+    const fonts = registeredFonts.map(font => `@font-face { font-family: ${font.name}; src: url(${font.dataUri}) }`);
+
     const svg = `<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                       preserveAspectRatio="xMidYMid meet" viewBox="0 0 ${width} ${height}">
                     <defs>
+                        <style type="text/css">
+                            ${fonts.join('')}
+                        </style>
                         <mask id="mask" maskUnits="userSpaceOnUse" width="${width}" height="${height}" x="0" y="0">
                             <text id="photomask" x="${width / 2}" y="${(height / 2) + (paddingTop + offset)}" fill="white"
                                   font-size="${fontSize}" font-family="${fontFamily}"
@@ -78,8 +100,6 @@ export function transform(img, { src, text, paddingLeft = 0, paddingRight = 0, p
                     </defs>
                     <use xlink:href="#photomask" />
                  </svg>`;
-
-    console.log(svg);
 
     // Define the SVG data to be used as the mask, and then construct the `style` attribute.
     const data = `data:image/svg+xml;base64,${btoa(svg)}`;
