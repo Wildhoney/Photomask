@@ -79,6 +79,11 @@ var Photomask =
 
 	    var height = computerProperty('height');
 	    var width = computerProperty('width');
+
+	    if (height === 0 || width === 0) {
+	        throw new Error('Photomask: Image MUST have a fixed height and width.');
+	    }
+
 	    var paddingLeft = computerProperty('padding-left');
 	    var paddingRight = computerProperty('padding-right');
 	    var paddingTop = computerProperty('padding-top');
