@@ -1,4 +1,4 @@
-var Photomask =
+module.exports =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -46,11 +46,9 @@ var Photomask =
 /***/ function(module, exports) {
 
 	/**
-	 * @method transform
-	 * @param {HTMLElement} img
-	 * @param {String} [src]
-	 * @param {String} [text]
-	 * @return {Promise}
+	 * @method computedProperty
+	 * @param {HTMLElement} element
+	 * @return {Function}
 	 */
 	'use strict';
 
@@ -58,37 +56,62 @@ var Photomask =
 	    value: true
 	});
 	exports.transform = transform;
-
-	function transform(img, _ref) {
-	    var src = _ref.src;
-	    var text = _ref.text;
-
-	    /**
-	     * @method computerProperty
-	     * @param {String} property
-	     * @param {Function} [coerceFn=parseFloat]
-	     * @return {Number}
-	     */
-	    var computerProperty = function computerProperty(property) {
+	var computedProperty = function computedProperty(element) {
+	    return function (property) {
 	        var coerceFn = arguments.length <= 1 || arguments[1] === undefined ? parseFloat : arguments[1];
 
 	        return (coerceFn || function (x) {
 	            return x;
-	        })(getComputedStyle(img).getPropertyValue(property), 10);
+	        })(getComputedStyle(element).getPropertyValue(property), 10);
 	    };
+	};
 
-	    var height = computerProperty('height');
-	    var width = computerProperty('width');
-	    var paddingLeft = computerProperty('padding-left');
-	    var paddingRight = computerProperty('padding-right');
-	    var paddingTop = computerProperty('padding-top');
-	    var fontFamily = computerProperty('font-family', null);
-	    var fontSize = (function computeFontSize(_x2, _x3) {
+	/**
+	 * @method transform
+	 * @param {HTMLElement} img
+	 * @param {String} [src]
+	 * @param {String} [text]
+	 * @param {Number} [paddingLeft]
+	 * @param {Number} [paddingRight]
+	 * @param {Number} [paddingTop]
+	 * @return {Promise}
+	 */
+
+	function transform(img) {
+	    var _ref = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+	    var src = _ref.src;
+	    var text = _ref.text;
+	    var _ref$paddingLeft = _ref.paddingLeft;
+	    var paddingLeft = _ref$paddingLeft === undefined ? 0 : _ref$paddingLeft;
+	    var _ref$paddingRight = _ref.paddingRight;
+	    var paddingRight = _ref$paddingRight === undefined ? 0 : _ref$paddingRight;
+	    var _ref$paddingTop = _ref.paddingTop;
+	    var paddingTop = _ref$paddingTop === undefined ? 0 : _ref$paddingTop;
+
+	    var computed = computedProperty(img);
+	    var height = computed('height');
+	    var width = computed('width');
+
+	    if (height === 0 || width === 0) {
+	        throw new Error('Photomask: Image MUST have a fixed height and width.');
+	    }
+
+	    var fontFamily = computed('font-family', null);
+
+	    /**
+	     * Recursively computes the ideal font-size, which can be perfected using the padding
+	     * properties via CSS.
+	     *
+	     * @property fontSize
+	     * @type {Number}
+	     */
+	    var fontSize = (function computeFontSize(_x3, _x4) {
 	        var _again = true;
 
 	        _function: while (_again) {
-	            var size = _x2,
-	                widthConstraint = _x3;
+	            var size = _x3,
+	                widthConstraint = _x4;
 	            _again = false;
 
 	            var canvas = document.createElement('canvas');
@@ -99,20 +122,20 @@ var Photomask =
 	                return size;
 	            }
 
-	            _x2 = size - 1;
-	            _x3 = widthConstraint;
+	            _x3 = size - 1;
+	            _x4 = widthConstraint;
 	            _again = true;
 	            canvas = context = undefined;
 	            continue _function;
 	        }
 	    })(500, width - (paddingLeft + paddingRight));
 
-	    var svg = '<svg xmlns="http://www.w3.org/2000/svg">\n                    <text x="' + width / 2 + '" y="' + (height / 2 + paddingTop) + '" fill="white"\n                          font-size="' + fontSize + '" font-family="' + fontFamily + '"\n                          alignment-baseline="central" text-anchor="middle">\n                        ' + text + '\n                    </text>\n                 </svg>';
+	    var svg = '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"\n                      preserveAspectRatio="xMidYMid meet" viewBox="0 0 ' + width + ' ' + height + '">\n                    <defs>\n                        <mask id="mask" maskUnits="userSpaceOnUse" width="' + width + '" height="' + height + '" x="0" y="0" />\n                        <text id="photomask" x="' + width / 2 + '" y="' + (height / 2 + paddingTop) + '" fill="white"\n                              font-size="' + fontSize + '" font-family="' + fontFamily + '"\n                              alignment-baseline="central" text-anchor="middle">\n                            ' + text + '\n                        </text>\n                    </defs>\n                    <use xlink:href="#photomask" />\n                 </svg>';
 
 	    // Define the SVG data to be used as the mask, and then construct the `style` attribute.
-	    var mask = 'url(data:image/svg+xml;base64,' + btoa(svg) + ')';
+	    var data = 'data:image/svg+xml;base64,' + btoa(svg);
 
-	    img.setAttribute('style', '\n        padding: 0;\n        background-image: url(' + src + ');\n        background-size: cover;\n        -webkit-mask-image: ' + mask + ';\n        mask: ' + mask);
+	    img.setAttribute('style', '\n        padding: 0;\n        background-image: url(' + src + ');\n        background-size: cover;\n        -webkit-mask-image: url(' + data + ');\n        mask: url(' + data + '#mask)');
 	}
 
 	/**
@@ -122,9 +145,15 @@ var Photomask =
 	 */
 	function readAttributes(element) {
 
+	    var computed = computedProperty(element);
+	    var paddingLeft = computed('padding-left');
+	    var paddingRight = computed('padding-right');
+	    var paddingTop = computed('padding-top');
+
 	    return {
 	        text: element.getAttribute('alt'),
-	        src: element.getAttribute('src')
+	        src: element.getAttribute('src'),
+	        paddingLeft: paddingLeft, paddingRight: paddingRight, paddingTop: paddingTop
 	    };
 	}
 

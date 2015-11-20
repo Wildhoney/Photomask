@@ -7,3 +7,7 @@ npm-debug.log
 
 # ide
 .idea
+
+# bower
+example/vendor/*
+!example/vendor/.gitkeep
