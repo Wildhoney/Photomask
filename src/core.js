@@ -117,7 +117,7 @@ document.registerElement('x-photomask', {
          * @type {Object}
          */
         attachedCallback: { value: function attachedCallback() {
-           transform(this, readAttributes(this));
+            transform(this, readAttributes(this));
         }}
 
     })

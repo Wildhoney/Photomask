@@ -4,10 +4,8 @@
   "description": "Apply an alpha mask to your text using SVG and CSS mask-mode with custom font support.",
   "main": "dist/photomask.js",
   "scripts": {
-    "test": "ava",
-    "build": "webpack && uglifyjs dist/photomask.js --mangle-props -o dist/photomask.min.js && cp dist/photomask.js example/js/photomask.js",
-    "start": "webpack-dev-server --content-base example/",
-    "watch": "webpack --watch"
+    "test": "gulp test",
+    "start": "node example/server/default.js"
   },
   "repository": {
     "type": "git",
@@ -27,14 +25,22 @@
   "bugs": {
     "url": "https://github.com/Wildhoney/Photomask/issues"
   },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  },
   "homepage": "https://github.com/Wildhoney/Photomask#readme",
   "devDependencies": {
-    "ava": "^0.5.0",
-    "babel": "^6.1.18",
-    "babel-loader": "^6.2.0",
+    "babel-eslint": "^4.1.5",
+    "babelify": "^6.4.0",
+    "browserify": "^11.2.0",
+    "eslint-config-airbnb": "^1.0.0",
     "express": "^4.13.3",
-    "uglify-js": "^2.6.1",
-    "webpack": "^1.12.6",
-    "webpack-dev-server": "^1.12.1"
+    "gulp": "^3.9.0",
+    "gulp-eslint": "^1.1.0",
+    "gulp-karma": "0.0.5",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^1.4.2"
   }
 }
