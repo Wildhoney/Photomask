@@ -7,11 +7,15 @@ node_js:
 
 sudo: false
 
-postinstall:
-    - npm run build
+script:
+  - npm install
+  - npm run build
 
 deploy:
   provider: heroku
+  strategy: api
+  all_branches: true
+  skip_cleanup: true
   api_key:
     secure: OLthN/5LHvJ0SGUP7zvNpB5QKsrfMstgpgr6EoWI9m3oZ+eRfDsCH04K6Xyo6S70RtV20/y2gXLmC6CL2P8Hkl336NEY/0AmljqHGQV6rMF4c3k+4CGfR1MTxpCJ29JIpewmZy3eaQEYcmI6Z3W+u7CIMFpGZCs9mDKuIb083dEq/LF7y8q6vO33sMlllXl8alZIBru0jWLWfotLBjjbsH1y6g1SQVTbnarHedK6zb4xCSxas0422hroXSDGhZn/q0wHND7OajHGxqZOn1GeVnIJInYM2JoE++er4MEYDj2ppOuNB6IZo6mY5XSlLaPbGMdZvZIMnf5U7jQwIVQhTXsFpkA2BBoWo5iS8ttksYkDLHEd+hONp5tt8nXEqaTnXDbkRce5n1sw5HfKuvqbRKRJ4W4H42oJBf/vT4go0VWX7G3Pub42AqKHpncm7EiI0fuuJ1cAhm5L1+HbjLiN1TSEdE7BnB/cB+m0PlLYft2IYgoALchQHLFf+OE5eDl3D80dypch8N3mUbUT1sEEBdKeNGharf8rXhzgYPcJJdNjGlALRuSISomuERoyOb5bh3P14xIdkVGM9hEarSFkAmCnXIDF4BakEUQ4tpTnW7tTc4lnJrNtpJTWQFoSmVj9lE7y8rvHKDRmLnAMYY07pRE5q4dMRLfO10bsb45odAc=
   app: photomask
