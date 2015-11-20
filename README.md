@@ -43,7 +43,7 @@ img[is="x-photomask"] {
 
 ### Using Custom Fonts
 
-By supplying the `font-family` property you can change the font that is rendered with Photomask. Adding a custom font is done via the `registerFont` function &mdash; you must pass the `name` (`font-family`) of the font and the `dataUri` which you can generate via [Dopiaza](http://dopiaza.org/tools/datauri/index.php).
+By supplying the `font-family` property you can change the font. Adding a custom font is achieved via the `registerFont` function &mdash; you must pass the `name` (`font-family`) of the font and the `dataUri` which you can generate via [Dopiaza](http://dopiaza.org/tools/datauri/index.php).
 
 ```javascript
 import {registerFont} from 'photomask';

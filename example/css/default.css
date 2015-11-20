@@ -4,11 +4,6 @@
     box-sizing: border-box;
 }
 
-@font-face {
-    font-family: WhoopAss;
-    src: url('../fonts/whoopass.woff');
-}
-
 body, html {
     overflow: hidden;
 }
