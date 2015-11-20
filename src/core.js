@@ -8,24 +8,26 @@
 export function transform(img, { src, text }) {
 
     /**
-     * @method getDimension
+     * @method computerProperty
      * @param {String} property
+     * @param {Function} [coerceFn=parseFloat]
      * @return {Number}
      */
-    const getDimension = property => {
-        return parseInt(getComputedStyle(img).getPropertyValue(property), 10);
+    const computerProperty = (property, coerceFn = parseFloat) => {
+        return (coerceFn || ((x) => x))(getComputedStyle(img).getPropertyValue(property), 10);
     };
 
-    const height = getDimension('height');
-    const width = getDimension('width');
-    const paddingLeft = getDimension('padding-left');
-    const paddingRight = getDimension('padding-right');
-    const paddingTop = getDimension('padding-top');
+    const height = computerProperty('height');
+    const width = computerProperty('width');
+    const paddingLeft = computerProperty('padding-left');
+    const paddingRight = computerProperty('padding-right');
+    const paddingTop = computerProperty('padding-top');
+    const fontFamily = computerProperty('font-family', null);
     const fontSize = (function computeFontSize(size, widthConstraint) {
 
         const canvas = document.createElement('canvas');
         const context = canvas.getContext('2d');
-        context.font = `${size}px 'WhoopAss'`;
+        context.font = `${size}px ${fontFamily}`;
 
         if (context.measureText(text).width <= widthConstraint) {
             return size;
@@ -37,7 +39,7 @@ export function transform(img, { src, text }) {
 
     const svg = `<svg xmlns="http://www.w3.org/2000/svg">
                     <text x="${width / 2}" y="${(height / 2) + paddingTop}" fill="white"
-                          font-size="${fontSize}" font-family="WhoopAss, san-serif"
+                          font-size="${fontSize}" font-family="${fontFamily}"
                           alignment-baseline="central" text-anchor="middle">
                         ${text}
                     </text>
@@ -48,7 +50,7 @@ export function transform(img, { src, text }) {
 
     img.setAttribute('style', `
         padding: 0;
-        background-image: url('images/meadows.jpg');
+        background-image: url(${src});
         background-size: cover;
         -webkit-mask-image: ${mask};
         mask: ${mask}`);

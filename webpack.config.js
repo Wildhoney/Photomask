@@ -6,7 +6,7 @@ module.exports = {
         path: path.join(__dirname, 'dist'),
         filename: 'photomask.js',
         library: 'Photomask',
-        libraryTarget: 'commonjs2'
+        libraryTarget: 'var'
     },
     module: {
         loaders: [

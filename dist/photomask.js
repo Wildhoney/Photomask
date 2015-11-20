@@ -64,49 +64,58 @@ var Photomask =
 	    var text = _ref.text;
 
 	    /**
-	     * @method getDimension
+	     * @method computerProperty
 	     * @param {String} property
+	     * @param {Function} [coerceFn=parseFloat]
 	     * @return {Number}
 	     */
-	    var getDimension = function getDimension(property) {
-	        return parseInt(getComputedStyle(img).getPropertyValue(property), 10);
+	    var computerProperty = function computerProperty(property) {
+	        var coerceFn = arguments.length <= 1 || arguments[1] === undefined ? parseFloat : arguments[1];
+
+	        return (coerceFn || function (x) {
+	            return x;
+	        })(getComputedStyle(img).getPropertyValue(property), 10);
 	    };
 
-	    var height = getDimension('height');
-	    var width = getDimension('width');
-	    var paddingLeft = getDimension('padding-left');
-	    var paddingRight = getDimension('padding-right');
-	    var paddingTop = getDimension('padding-top');
-	    var fontSize = (function computeFontSize(_x, _x2) {
+	    var height = computerProperty('height');
+	    var width = computerProperty('width');
+	    var paddingLeft = computerProperty('padding-left');
+	    var paddingRight = computerProperty('padding-right');
+	    var paddingTop = computerProperty('padding-top');
+	    var fontFamily = computerProperty('font-family', null);
+
+	    console.log(fontFamily);
+
+	    var fontSize = (function computeFontSize(_x2, _x3) {
 	        var _again = true;
 
 	        _function: while (_again) {
-	            var size = _x,
-	                widthConstraint = _x2;
+	            var size = _x2,
+	                widthConstraint = _x3;
 	            _again = false;
 
 	            var canvas = document.createElement('canvas');
 	            var context = canvas.getContext('2d');
-	            context.font = size + 'px \'WhoopAss\'';
+	            context.font = size + 'px ' + fontFamily;
 
 	            if (context.measureText(text).width <= widthConstraint) {
 	                return size;
 	            }
 
-	            _x = size - 1;
-	            _x2 = widthConstraint;
+	            _x2 = size - 1;
+	            _x3 = widthConstraint;
 	            _again = true;
 	            canvas = context = undefined;
 	            continue _function;
 	        }
 	    })(500, width - (paddingLeft + paddingRight));
 
-	    var svg = '<svg xmlns="http://www.w3.org/2000/svg">\n                    <text x="' + width / 2 + '" y="' + (height / 2 + paddingTop) + '" fill="white"\n                          font-size="' + fontSize + '" font-family="WhoopAss, san-serif"\n                          alignment-baseline="central" text-anchor="middle">\n                        ' + text + '\n                    </text>\n                 </svg>';
+	    var svg = '<svg xmlns="http://www.w3.org/2000/svg">\n                    <text x="' + width / 2 + '" y="' + (height / 2 + paddingTop) + '" fill="white"\n                          font-size="' + fontSize + '" font-family="' + fontFamily + '"\n                          alignment-baseline="central" text-anchor="middle">\n                        ' + text + '\n                    </text>\n                 </svg>';
 
 	    // Define the SVG data to be used as the mask, and then construct the `style` attribute.
 	    var mask = 'url(data:image/svg+xml;base64,' + btoa(svg) + ')';
 
-	    img.setAttribute('style', '\n        padding: 0;\n        background-image: url(\'images/meadows.jpg\');\n        background-size: cover;\n        -webkit-mask-image: ' + mask + ';\n        mask: ' + mask);
+	    img.setAttribute('style', '\n        padding: 0;\n        background-image: url(' + src + ');\n        background-size: cover;\n        -webkit-mask-image: ' + mask + ';\n        mask: ' + mask);
 	}
 
 	/**
