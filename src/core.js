@@ -82,7 +82,11 @@ export function transform(img, { src, text, paddingLeft = 0, paddingRight = 0, p
     })(500, width - (paddingLeft + paddingRight));
 
     // Import all of the registered fonts.
-    const fonts = registeredFonts.map(font => `@font-face { font-family: ${font.name}; src: url(${font.dataUri}) }`);
+    const fonts = registeredFonts.map(font => `
+        @font-face {
+            font-family: ${font.name};
+            src: url(${font.dataUri})
+        }`);
 
     const svg = `<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                       preserveAspectRatio="xMidYMid meet" viewBox="0 0 ${width} ${height}">
